@@ -1,4 +1,34 @@
+<?php
+// путь к файлу
+$filename = '1.jpg';
+
+// задание ширины и высоты
+$width = 200;
+$height = 200;
+
+// создаем пустое полотно
+$image_p = imagecreatetruecolor($width, $height);
+// загружаем изображение из файла
+$image = imagecreatefromjpeg($filename);
+
+list($width_orig, $height_orig) = getimagesize($filename);
+
+$ratio_orig = $width_orig/$height_orig;
+
+if ($width/$height > $ratio_orig) {
+   $width = $height*$ratio_orig;
+} else {
+   $height = $width/$ratio_orig;
+}
+// перемещаем изображение из файла на полотно с изменением масштаба
+imagecopyresampled($image_p, $image, 0, 0, 0, 0, $width, $height, $width_orig,$height_orig);
+
+// вывод
+imagejpeg($image_p, '2.jpg', 100);
+
+?>
 <?
+/*
 	if(!isset($_FILES["photo"]["tmp_name"])){
 	$mas = scandir("files",1);
 	foreach($mas as $file){
@@ -33,3 +63,5 @@ for ($i=0; $i <= $sumfile; $i++){
 
 	';
 }
+*/
+
